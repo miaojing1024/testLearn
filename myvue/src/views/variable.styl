@@ -1,0 +1,12 @@
+xxx = 1
+// 超出出现省略号  param {Number}  $value - 行数，默认2
+amOverLineClamp($value = 2)
+  text-overflow -o-ellipsis-lastline
+  overflow hidden
+  text-overflow ellipsis
+  display -webkit-box
+  -webkit-line-clamp $value
+  line-clamp $value
+  -webkit-box-orient vertical
+
+

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var longestCommonPrefix = function(strs) { 
+            if(strs.length=== 0){
+                return ""
+            }else{
+                var reslut=""
+                for(var i=0;i<strs[0].length;i++){//循环第一个的第几个
+                    for(var j = 1; j < strs.length; j++){//循环从第二个开始的数组对象
+                        // console.log(strs[0][i])
+                        if(strs[j][i] != strs[0][i] ){
+                            return reslut
+                        }
+                    }
+                    reslut += strs[0][i]
+                }
+                return reslut
+            }     
+        };
+       console.log(longestCommonPrefix( ["flower","flow",""])) 
+       console.log(longestCommonPrefix( [] )) 
+       console.log(longestCommonPrefix( ["flower","flow","flo"])) 
+    </script>
+</body>
+</html>

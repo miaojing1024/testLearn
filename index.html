@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div{
+            width: 100px;
+            height: 300px;
+            background:#555;
+            margin-bottom: 10px;
+            margin-left: 40%;
+        }
+        #a{
+            background: red;
+        }
+    </style>
+    <script>
+        //JS实现懒加载原理,监听滚动时间,当滚动条位置减去屏幕高度大于div所在的offsetTop的时候 这个div样式改变;
+        //换成img元素,将真实的src写到自定义data-src属性中,滚动到位置的时候用data-src代替现在的src即可
+        window.onscroll = _=>{
+            // console.log(document.documentElement.scrollTop)
+            let oA = document.querySelector("#a");
+            // console.log(oA.offsetTop)
+            if((document.documentElement.scrollTop+ document.documentElement.clientHeight) >= oA.offsetTop){
+                console.log('true')
+                oA.style.width='500px';
+            }
+        }
+    //    var  times = +new Date()
+    //    console.log(times)
+    //    let date = new Date(times + 8 * 3600 * 1000);
+    //    console.log( date.toJSON().substr(11, 19).replace("T", " ").replace(".000Z", ""))
+
+
+      var times = +new Date() 
+      console.log(times)
+      let date = new Date(times + 8 * 3600 * 1000);
+      console.log(date.toJSON().substr(0, 19).replace("T", " "))
+    </script>
+</head>
+<body>
+    <div ></div>
+    <div ></div>
+    <div ></div>
+    <div ></div>
+    <div id='a'></div>
+    <div ></div>
+    <div ></div>
+    <div ></div>
+    <div ></div>
+    <div ></div>
+    <div ></div>
+</body>
+</html>
