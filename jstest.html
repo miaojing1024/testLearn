@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" /> -->
+  <title>地图</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvasLinear"></canvas>
+  <script type="text/javascript">
+    // TODO 练习一
+    // 实现函数 functionFunction，调用之后满足如下条件：
+    // 1、返回值为一个函数 f
+    // 2、调用返回的函数 f，返回值为按照调用顺序的参数拼接，拼接字符为英文逗号加一个空格，即 ', '
+    // 3、所有函数的参数数量为 1，且均为 String 类型
+    // function functionFunction(str) {
+    //   var ret = Array.prototype.slice.call(arguments).join(', ');
+    //   var temp = function (str) {
+    //     ret = [ret, Array.prototype.slice.call(arguments).join(', ')].join(', ');
+    //     return temp;
+    //   };
+    //   console.log(temp.toString);
+    //   temp.toString = function () {
+    //     return ret;
+    //   };
+    //   return temp;
+    // }
+    // console.log(functionFunction('Hello', 'swss')('World', 'sss').toString());
+    // TODO 练习二
+    // 实现函数 makeClosures，调用之后满足如下条件：
+    // 1、返回一个函数数组 result，长度与 arr 相同
+    // 2、运行 result 中第 i 个函数，即 result[i]()，结果与 fn(arr[i]) 相同
+    // function makeClosures(arr, fn) {
+    //   let result = []
+    //   arr.forEach(element => {
+    //     result.push(function newFn() {
+    //       return element * element
+    //     })
+    //   });
+    //   return result
+    // }
+    // function makeClosures(arr, fn) {
+    //   var result = new Array();
+
+    //   for (i = 0; i < arr.length; i++) {
+    //     result[i] = function (num) {
+
+    //       return function () {
+    //         return fn(num)
+    //       }
+    //     }(arr[i]);
+    //   }
+    //   return result;
+
+    // }
+    // let res = makeClosures([1, 2, 3], function (x) {
+    //   return x * x;
+    // })
+    // console.log(res[0]());
+    // TODO 练习三
+    // 已知函数 fn 执行需要 3 个参数。请实现函数 partial，调用之后满足如下条件：
+    // 1、返回一个函数 result，该函数接受一个参数
+    // 2、执行 result(str3) ，返回的结果与 fn(str1, str2, str3) 一致
+    // function partial(fn, str1, str2) {
+    //   function result(str3) {
+    //     return fn(str1, str2, str3)
+    //   }
+    //   return result
+    // }
+    // var sayIt = function (greeting, name, punctuation) {
+    //   return greeting + ', ' + name + (punctuation || '!');
+    // };
+    // console.log(partial(sayIt, 'Hello', 'Ellie')('!!!'));
+    // TODO 练习四
+    // 函数 useArguments 可以接收 1 个及以上的参数。
+    // 请实现函数 useArguments，返回所有调用参数相加后的结果。
+    // 本题的测试参数全部为 Number 类型，不需考虑参数转换。
+    // function useArguments() {
+    //   console.log(Array.prototype.slice.call());
+    //   let arr = Array.prototype.slice.call(arguments);
+    //   let result = null
+    //   arr.forEach(element => {
+    //     result += element
+    //   });
+    //   return result
+    // }
+    // function useArguments() {
+    //   console.log(Array.from(arguments));
+    //   return Array.from(arguments).reduce((acc, cur) => acc + cur, 0)
+    // }
+    // console.log(useArguments(1, 2, 3, 4));
+    // TODO 练习五
+    // 实现函数 callIt，调用之后满足如下条件
+    // 1、返回的结果为调用 fn 之后的结果
+    // 2、fn 的调用参数为 callIt 的第一个参数之后的全部参数
+    // function callIt(fn) {
+    //   let arr = Array.from(arguments)
+    //   arr.shift()
+    //   return fn(...arr)
+    // }
+    // function callIt(fn) {
+    //   return [].shift.call(arguments).apply(null, arguments);
+    // }
+    // function callIt(fn) {
+    //   return fn.apply(this, [].slice.call(arguments, 1));
+    // }
+    // console.log(callIt(function (a, b) {
+    //   return a + b
+    // }, 1, 2));
+    // TODO 练习六
+    // 实现函数 partialUsingArguments，调用之后满足如下条件：
+    // 1、返回一个函数 result
+    // 2、调用 result 之后，返回的结果与调用函数 fn 的结果一致
+    // 3、fn 的调用参数为 partialUsingArguments 的第一个参数之后的全部参数以及 result 的调用参数
+    // function partialUsingArguments(fn) {
+    //   let arr = [].slice.call(arguments, 1)
+    //   function result() {
+    //     let newArr = Array.from(arguments)
+    //     return fn.call(null, ...arr, ...newArr)
+    //   }
+    //   return result
+    // }
+    // function partialUsingArguments(fn) {
+    //   var arr = Array.prototype.slice.call(arguments, 1);
+    // unshift是往数组前面插入元素。bind和apply的第一个参数都是改变函数中this的指向，如果传入null就会指向window。apply的第二个参数为数组或伪数组，作用是将数组的元素作为fn.bind的参数传入。
+    //   arr.unshift(null);
+    //   return fn.bind.apply(fn, arr);
+    // }
+    // console.log(partialUsingArguments(function () {
+    //   let Arr = Array.from(arguments)
+    //   let sum = Arr.reduce((pre, now) => {
+    //     return pre + now
+    //   }, 0)
+    //   return sum
+    // }, 1, 2)(3, 4));
+    // TODO 练习七
+    // 已知 fn 为一个预定义函数，实现函数 curryIt，调用之后满足如下条件：
+    // 1、返回一个函数 a，a 的 length 属性值为 1（即显式声明 a 接收一个参数）
+    // 2、调用 a 之后，返回一个函数 b, b 的 length 属性值为 1
+    // 3、调用 b 之后，返回一个函数 c, c 的 length 属性值为 1
+    // 4、调用 c 之后，返回的结果与调用 fn 的返回值一致
+    // 5、fn 的参数依次为函数 a, b, c 的调用参数
+    // function curryIt(fn) {
+    //   function a(a) {
+    //     function b(b) {
+    //       function c(c) {
+    //         return fn(a, b, c)
+    //       }
+    //       return c
+    //     }
+    //     return b
+    //   }
+    //   return a
+    // }
+    // function curryIt(fn) {
+    //   var length = fn.length,
+    //     args = [];
+    //   var result = function (arg) {
+    //     args.push(arg);
+    //     length--;
+    //     if (length <= 0) {
+    //       return fn.apply(this, args);
+    //     } else {
+    //       return result;
+    //     }
+    //   }
+
+    //   return result;
+    // }
+    // var fn = function (a, b, c) { return a + b + c };
+    // console.log(curryIt(fn)(1)(2)(3));
+    // TODO 练习八
+    // 获取数字 num 二进制形式第 bit 位的值。注意：
+    // 1、bit 从 1 开始
+    // 2、返回 0 或 1
+    // 3、举例：2 的二进制为 10，第 1 位为 0，第 2 位为 1
+    // function valueAtBit(num, bit) {
+    //   let result = num
+    //   let arr = []
+    //   for (i = 0; result >= 2; i++) {
+    //     arr.push(result % 2)
+    //     result = Math.floor(result / 2)
+    //   }
+    //   arr.push(result)
+    //   console.log(arr);
+    //   return arr[bit - 1]
+    // }
+    // console.log(valueAtBit(128, 8));
+    // function valueAtBit(num, bit) {
+    //   var bt = num.toString(2);
+    //   return bt[bt.length - bit];
+    // }
+    // console.log(valueAtBit(128, 8));
+    // TODO 练习九
+    // 给定一个构造函数 constructor，请完成 alterObjects 方法，将 constructor 的所有实例的 greeting 属性指向给定的 greeting 变量。
+    // function alterObjects(constructor, greeting) {
+    //   console.log(constructor);
+    //   // return constructor.prototype.greeting = greeting;
+    // }
+    // function a() {
+    //   var C = function (name) { this.name = name; return this; };
+    //   var obj1 = new C('Rebecca');
+    //   alterObjects(C, 'What\'s up');
+    //   return obj1.greeting;
+    // }
+    // console.log(a());
+
+    // TODO 练习十
+    // 找出对象 obj 不在原型链上的属性(注意这题测试例子的冒号后面也有一个空格~)
+    // 1、返回数组，格式为 key: value
+    // 2、结果数组不要求顺序
+    // function iterate(obj) {
+    //   let keys = Object.keys(arguments[0])
+    //   let arr = []
+    //   keys.forEach((item) => {
+    //     arr.push(item + ": " + obj[item])
+    //   })
+    //   return arr
+    // }
+    // function iterate(obj) {
+    //   return Object.getOwnPropertyNames(obj).map(item => {
+    //     return item + ': ' + obj[item]
+    //   })
+    // }
+    // 输入var C = function () {
+    //   this.foo = 'bar';
+    //   this.baz = 'bim';
+    // };
+    // C.prototype.bop = 'bip';
+    // iterate(new C());
+    // 输出["foo: bar", "baz: bim"]
+    // TODO 练习十一
+    // 给定字符串 str，检查其是否符合美元书写格式
+    // 1、以 $ 开始
+    // 2、整数部分，从个位起，满 3 个数字用, 分隔
+    // 3、如果为小数，则小数部分长度为 2
+    // 4、正确的格式如：$1, 023, 032.03 或者 $2.03，错误的格式如：$3, 432, 12.12 或者 $34, 344.3
+    function isUSD(str) {
+      let regexp = /^\$\d{1,3}(,\d{3})*(\.\d{2})?$/
+      return regexp.test(str)
+    }
+    // function isUSD(str) {
+    //   let regexp = /^\$/
+    //   let replaceStr = str.replace(/ /g, '')
+    //   let arr = replaceStr.split(".")
+    //   let res = ''
+    //   if (regexp.test(replaceStr)) {
+    //     if ((arr[1] && arr[1].length == 2) || !arr[1]) {
+    //       if (!arr[1]) {
+    //         res = replaceStr.slice(1).split(",")
+    //       } else {
+    //         res = replaceStr.slice(1, replaceStr.indexOf('.')).split(",")
+    //       }
+    //       if (!res[0]) {
+    //         return false
+    //       }
+    //       for (let i = 1; i < res.length; i++) {
+    //         if (res[i].length != 3) {
+    //           return false
+    //         }
+    //       }
+    //       return true
+    //     }
+    //     return false
+    //   }
+    //   return false
+    // }
+    console.log(isUSD('$20,933,209.93')); // true
+    console.log(isUSD('$1, 023, 032.03'));// true
+    console.log(isUSD('$2.03'));// true
+    console.log(isUSD('$3, 432, 12.12')); // false
+    console.log(isUSD('$34, 344.3')); // false
+    console.log(isUSD('$20,933,209')); // true
+    console.log(isUSD('$,344.34')); // false
+  </script>
+</body>
+
+</html>

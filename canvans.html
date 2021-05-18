@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" /> -->
+    <title>地图</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvasLinear"></canvas>
+    <script type="text/javascript">
+        var canvasLinear = document.getElementById('canvasLinear');
+        var contextLinear = canvasLinear.getContext('2d');
+        // 创建线性渐变对象
+        var gradientLinear = contextLinear.createLinearGradient(0, 0, 0, 100);
+        gradientLinear.addColorStop(0, 'red');
+        gradientLinear.addColorStop(1, 'green');
+        // 填充线性渐变
+        contextLinear.fillStyle = gradientLinear;
+        contextLinear.fillRect(10, 10, 100, 100);
+    </script>
+</body>
+
+</html>
